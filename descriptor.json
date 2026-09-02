@@ -1,0 +1,120 @@
+{
+    "id": "dbf6d17b-8266-4679-9dfb-698d7cced62b",
+    "name": "laim-business-process",
+    "description": "Извлечение бизнес-процессного описания из отчёта о разработке модели",
+    "fullDescription": "FOR MORE DETAILS VIEW README.md",
+    "moduleType": "unknown",
+    "uiResults": {},
+    "ports": [
+        {
+            "name": "development_report",
+            "label": "development_report",
+            "in": true,
+            "type": "default",
+            "shape": "shape_model",
+            "required": true,
+            "description": "pickle отчета о разработке",
+            "order": 1
+        },
+        {
+            "name": "hidden_port",
+            "label": "hidden_port",
+            "shape": "shape_model",
+            "in": false,
+            "type": "hidden",
+            "description": "",
+            "order": 2
+        }
+    ],
+    "portsMetadata": {
+        "hasDynamicInputPort": false,
+        "hasDynamicOutputPort": false
+    },
+    "script": {
+        "type": "python",
+        "deployType": "docker",
+        "baseImageKey": "py312-simple",
+        "runConfiguration": {
+            "libraryDependencies": [
+                "requirements.txt"
+            ],
+            "sourceFiles": [
+                "main.py"
+            ],
+            "functionName": "main",
+            "functionParameters": []
+        }
+    },
+    "ui": {
+        "settings": [
+            {
+                "page": "General",
+                "title": "General",
+                "components": [
+                    {
+                        "type": "form",
+                        "label": "llm parameters",
+                        "config": {
+                            "components": [
+                                {
+                                    "parameter": "pr_llm_model",
+                                    "label": "model",
+                                    "uiComponent": "input",
+                                    "type": "string",
+                                    "defaultValue": "GigaChat-2-Max"
+                                },
+                                {
+                                    "parameter": "pr_llm_temperature",
+                                    "label": "temperature",
+                                    "uiComponent": "input",
+                                    "type": "float",
+                                    "defaultValue": 0.0
+                                },
+                                {
+                                    "parameter": "pr_llm_top_p",
+                                    "label": "top_p",
+                                    "uiComponent": "input",
+                                    "type": "float",
+                                    "defaultValue": 0.1
+                                },
+                                {
+                                    "parameter": "pr_llm_repetition_penalty",
+                                    "label": "repetition_penalty",
+                                    "uiComponent": "input",
+                                    "type": "float",
+                                    "defaultValue": 1
+                                },
+                                {
+                                    "parameter": "pr_llm_max_tokens",
+                                    "label": "max_tokens",
+                                    "uiComponent": "input",
+                                    "type": "int",
+                                    "defaultValue": 16384
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "result": {
+            "title": "Results",
+            "components": [
+                {
+                    "name": "$.hidden_port",
+                    "label": "",
+                    "parameter": "$.hidden_port",
+                    "uiComponent": "html",
+                    "type": "html",
+                    "config": {
+                        "datasets": [
+                            {
+                                "data": "$.hidden_port"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

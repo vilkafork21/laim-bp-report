@@ -1,0 +1,9 @@
+{
+    "llm": {
+        "kwargs": {
+            "model": "GigaChat-2-Max",
+            "temperature": 0.0,
+            "max_tokens": 2048
+        }
+    }
+}
